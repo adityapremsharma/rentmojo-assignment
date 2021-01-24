@@ -1,0 +1,29 @@
+body {
+  background-color: #374045;
+  color: #fff;
+  padding: 20px;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 10px;
+}
+. a:hover {
+  text-decoration: none;
+  color: #00af91;
+}
+
+.showComments:hover {
+  color: #00af91;
+}
+
+.pagination {
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+}
