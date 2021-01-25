@@ -1,6 +1,6 @@
 body {
-  background-color: #374045;
-  color: #fff;
+  background-color: #374045 !important;
+  color: #fff !important;
   padding: 20px;
 }
 
