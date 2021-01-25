@@ -18,6 +18,11 @@ th {
   color: #00af91;
 }
 
+.showComments {
+  color: #0275d8 !important;
+}
+
+
 .showComments:hover {
   color: #00af91;
 }
