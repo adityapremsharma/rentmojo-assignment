@@ -3,10 +3,13 @@ import posts from "../api/posts";
 import Input from "./Input";
 import Comments from "./Comments";
 
+import { Spinner } from "react-bootstrap";
+
 const PostDetails = ({ href }) => {
   const [input, setInput] = useState("");
   const [postData, setPostData] = useState([]);
   const [comments, setComments] = useState([]);
+  const [spinner, setSpinner] = useState(true);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -15,6 +18,7 @@ const PostDetails = ({ href }) => {
     posts
       .get("/posts/" + href, { signal: signal })
       .then((res) => {
+        setSpinner(false);
         setPostData(res.data);
       })
       .catch((err) => {
@@ -63,7 +67,9 @@ const PostDetails = ({ href }) => {
     }
   };
 
-  return (
+  return spinner ? (
+    <Spinner className="spinner" animation="border" variant="success" />
+  ) : (
     <div>
       <h3>/postdetails</h3>
       <Input onChange={(e) => setInput(e.target.value)} />

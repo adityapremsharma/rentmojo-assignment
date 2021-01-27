@@ -4,11 +4,14 @@ import PostsList from "./PostsList";
 import posts from "../api/posts";
 import Pagination from "./Pagination";
 
+import { Spinner } from "react-bootstrap";
+
 const Posts = ({ getRoute, href }) => {
   const [input, setInput] = useState("");
   const [postsData, setPostsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 2;
+  const [spinner, setSpinner] = useState(true);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -25,6 +28,7 @@ const Posts = ({ getRoute, href }) => {
         { signal: signal }
       )
       .then((res) => {
+        setSpinner(false);
         if (input === "") {
           setPostsData(res.data);
         } else {
@@ -51,7 +55,9 @@ const Posts = ({ getRoute, href }) => {
     setCurrentPage(pageNumber);
   };
 
-  return (
+  return spinner ? (
+    <Spinner className="spinner" animation="border" variant="success" />
+  ) : (
     <div>
       <h3>/posts</h3>
       <Input onChange={(e) => setInput(e.target.value)} />
