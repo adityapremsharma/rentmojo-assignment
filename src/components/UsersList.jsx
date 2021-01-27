@@ -7,7 +7,7 @@ import { Table } from "react-bootstrap";
 
 const UsersList = ({ users, getRoute }) => {
   return (
-    <Table striped bordered hover variant="dark" className="container">
+    <Table striped bordered hover variant="dark">
       <thead>
         <RowHeading name="Name" company="Company" posts="Blogposts" />
       </thead>
