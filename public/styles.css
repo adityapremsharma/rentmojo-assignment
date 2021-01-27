@@ -1,5 +1,14 @@
 body {
+<<<<<<< HEAD
+=======
+  background-color: #374045 !important;
+  color: #fff !important;
+>>>>>>> 5a4898f074b0d454d104c63b42e1894a4a08a89d
   padding: 20px;
+}
+
+th {
+  background-color: #252525;
 }
 
 .App {
@@ -16,6 +25,11 @@ a:hover {
 .showComments {
   color: #0275d8 !important;
 }
+
+.showComments {
+  color: #0275d8 !important;
+}
+
 
 .showComments:hover {
   color: #00af91 !important;
