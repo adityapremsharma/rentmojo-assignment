@@ -25,13 +25,13 @@ const App = () => {
       <>
         <GlobalStyles />
         <div className="App">
-          <label class="switch">
+          <label className="switch">
             <input
               type="checkbox"
               onClick={themeToggler}
               value="Switch Theme"
             />
-            <span class="slider"></span>
+            <span className="slider"></span>
           </label>
           <Container>
             <Route path="/">
