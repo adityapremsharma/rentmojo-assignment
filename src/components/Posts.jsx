@@ -14,9 +14,9 @@ const Posts = ({ getRoute, href }) => {
   const postsPerPage = 2;
   const [spinner, setSpinner] = useState(true);
 
-  const [postsHref, setPostsHref] = useState(href);
+  const [postsHref, setPostsHref] = useState("");
 
-  const localHref = localStorage.getItem("postshref");
+  
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -29,23 +29,35 @@ const Posts = ({ getRoute, href }) => {
   }, [input]);
 
   useEffect(() => {
+    const localHref = localStorage.getItem("postshref");
     if (localHref) {
       setPostsHref(JSON.parse(localHref));
+    } else if (href && !localHref) {
+      setPostsHref(href);
+      
+      console.log("postsHref")
     }
-  }, []);
+  }, [href]);
+
+  // useEffect(() => {
+  //   if (href && !localHref) {
+  //     setPostsHref(href);
+  //   }
+
+  //   localStorage.setItem("postshref", JSON.stringify(postsHref));
+  // }, [localHref, href, postsHref])
 
   useEffect(() => {
+    console.log(postsHref)
     const abortController = new AbortController();
     const signal = abortController.signal;
-
+    
     localStorage.removeItem("postdetailshref");
-
-    if (href && !localHref) {
-      setPostsHref(href);
-    }
+    
 
     localStorage.setItem("postshref", JSON.stringify(postsHref));
 
+      if (postsHref) {
     posts
       .get(
         "/posts/",
@@ -70,11 +82,12 @@ const Posts = ({ getRoute, href }) => {
       .catch((err) => {
         console.log(err);
       });
+    }
 
     return () => {
       abortController.abort();
     };
-  }, [debounced, postsHref, href]);
+  }, [debounced, postsHref]);
 
   const indexLast = currentPage * postsPerPage;
   const indexFirst = indexLast - postsPerPage;
