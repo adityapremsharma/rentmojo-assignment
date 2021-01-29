@@ -73,7 +73,7 @@ const PostDetails = ({ href }) => {
     );
     if (deleteDecision) {
       posts
-        .delete("/posts" + post.id)
+        .delete("/posts/" + post.id)
         .then((res) => {
           console.log(res);
         })
