@@ -14,6 +14,9 @@ const Home = ({ getRoute }) => {
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
+
+    localStorage.removeItem("postshref");
+
     posts.get("/users", { signal: signal }).then((res) => {
       setSpinner(false);
       if (input === "") {

@@ -13,16 +13,34 @@ const Posts = ({ getRoute, href }) => {
   const postsPerPage = 2;
   const [spinner, setSpinner] = useState(true);
 
+  const [postsHref, setPostsHref] = useState(href);
+
+  const localHref = localStorage.getItem("postshref");
+
+  useEffect(() => {
+    if (localHref) {
+      setPostsHref(JSON.parse(localHref));
+    }
+  }, []);
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
+
+    localStorage.removeItem("postdetailshref");
+
+    if (href && !localHref) {
+      setPostsHref(href);
+    }
+
+    localStorage.setItem("postshref", JSON.stringify(postsHref));
 
     posts
       .get(
         "/posts/",
         {
           params: {
-            userId: href
+            userId: postsHref
           }
         },
         { signal: signal }
@@ -45,7 +63,7 @@ const Posts = ({ getRoute, href }) => {
     return () => {
       abortController.abort();
     };
-  }, [input, href, postsData]);
+  }, [input, postsHref, href, localHref]);
 
   const indexLast = currentPage * postsPerPage;
   const indexFirst = indexLast - postsPerPage;

@@ -11,12 +11,28 @@ const PostDetails = ({ href }) => {
   const [comments, setComments] = useState([]);
   const [spinner, setSpinner] = useState(true);
 
+  const [postsHref, setPostsHref] = useState(href);
+
+  const localHref = localStorage.getItem("postdetailshref");
+
+  useEffect(() => {
+    if (localHref) {
+      setPostsHref(JSON.parse(localHref));
+    }
+  }, []);
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
+    if (href && !localHref) {
+      setPostsHref(href);
+    }
+
+    localStorage.setItem("postdetailshref", JSON.stringify(postsHref));
+
     posts
-      .get("/posts/" + href, { signal: signal })
+      .get("/posts/" + postsHref, { signal: signal })
       .then((res) => {
         setSpinner(false);
         setPostData(res.data);
@@ -27,13 +43,13 @@ const PostDetails = ({ href }) => {
     return () => {
       abortController.abort();
     };
-  }, [input, href]);
+  }, [input, postsHref, href, localHref]);
 
   const getComments = () => {
     posts
       .get("/comments", {
         params: {
-          postId: href
+          postId: postsHref
         }
       })
       .then((res) => {

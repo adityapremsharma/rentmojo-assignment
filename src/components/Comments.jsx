@@ -19,7 +19,7 @@ const Comments = ({ postHeading, getComments, deletePost, showComments }) => {
           Show Comments
         </Alert.Link>
       </Alert>
-      <Link href="/">
+      <Link href="/posts">
         <Button
           onClick={() => {
             deletePost(postHeading);
