@@ -8,6 +8,7 @@ import { Spinner } from "react-bootstrap";
 
 const Posts = ({ getRoute, href }) => {
   const [input, setInput] = useState("");
+  const [debounced, setDebounced] = useState(input);
   const [postsData, setPostsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 2;
@@ -16,6 +17,16 @@ const Posts = ({ getRoute, href }) => {
   const [postsHref, setPostsHref] = useState(href);
 
   const localHref = localStorage.getItem("postshref");
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebounced(input);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [input]);
 
   useEffect(() => {
     if (localHref) {
@@ -47,11 +58,11 @@ const Posts = ({ getRoute, href }) => {
       )
       .then((res) => {
         setSpinner(false);
-        if (input === "") {
+        if (debounced === "") {
           setPostsData(res.data);
         } else {
           const filteredData = res.data.filter((data) => {
-            return data.title.includes(input);
+            return data.title.includes(debounced);
           });
           setPostsData(filteredData);
         }
@@ -63,7 +74,7 @@ const Posts = ({ getRoute, href }) => {
     return () => {
       abortController.abort();
     };
-  }, [input, postsHref, href, localHref]);
+  }, [debounced, postsHref, href]);
 
   const indexLast = currentPage * postsPerPage;
   const indexFirst = indexLast - postsPerPage;

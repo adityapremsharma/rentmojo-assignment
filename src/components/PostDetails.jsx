@@ -43,7 +43,7 @@ const PostDetails = ({ href }) => {
     return () => {
       abortController.abort();
     };
-  }, [input, postsHref, href, localHref]);
+  }, [postsHref, href, localHref]);
 
   const getComments = () => {
     posts
@@ -73,7 +73,7 @@ const PostDetails = ({ href }) => {
     );
     if (deleteDecision) {
       posts
-        .delete("/posts" + post.id)
+        .delete("/posts/" + post.id)
         .then((res) => {
           console.log(res);
         })
