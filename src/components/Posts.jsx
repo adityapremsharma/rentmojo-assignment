@@ -34,21 +34,10 @@ const Posts = ({ getRoute, href }) => {
       setPostsHref(JSON.parse(localHref));
     } else if (href && !localHref) {
       setPostsHref(href);
-      
-      console.log("postsHref")
     }
   }, [href]);
 
-  // useEffect(() => {
-  //   if (href && !localHref) {
-  //     setPostsHref(href);
-  //   }
-
-  //   localStorage.setItem("postshref", JSON.stringify(postsHref));
-  // }, [localHref, href, postsHref])
-
   useEffect(() => {
-    console.log(postsHref)
     const abortController = new AbortController();
     const signal = abortController.signal;
     

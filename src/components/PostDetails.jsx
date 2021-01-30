@@ -23,18 +23,8 @@ const PostDetails = ({ href }) => {
     } else if (href && !localHref) {
       
       setPostsHref(href);
-      console.log(postsHref)
     }
   }, [href]);
-
-  // useEffect(() => {
-  //   if (href && !localHref) {
-  //     setPostsHref(href);
-  //   }
-
-  //   localStorage.setItem("postdetailshref", JSON.stringify(postsHref));
-
-  // }, [localHref, href, postsHref])
 
   useEffect(() => {
     const abortController = new AbortController();
